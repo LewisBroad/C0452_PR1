@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "612ae7f2-6593-4a7e-a7d8-8f618a2836eb": {
+      "ProjectGuid": "612ae7f2-6593-4a7e-a7d8-8f618a2836eb",
+      "DisplayName": "ZombieShooterGame",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jlhea\\source\\repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj": {}
+    "C:\\Users\\22135121\\Source\\Repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jlhea\\source\\repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj": {
+    "C:\\Users\\22135121\\Source\\Repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jlhea\\source\\repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj",
+        "projectUniqueName": "C:\\Users\\22135121\\Source\\Repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj",
         "projectName": "ZombieShooterGame",
-        "projectPath": "C:\\Users\\jlhea\\source\\repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj",
-        "packagesPath": "C:\\Users\\jlhea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jlhea\\source\\repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\obj\\",
+        "projectPath": "C:\\Users\\22135121\\Source\\Repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\ZombieShooterGame.csproj",
+        "packagesPath": "C:\\Users\\22135121\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\22135121\\Source\\Repos\\C0452_PR1\\ZombieShooterGame\\ZombieShooterGame\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jlhea\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "\\\\STU01FS\\Homes\\22135121\\Settings\\AppData\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
