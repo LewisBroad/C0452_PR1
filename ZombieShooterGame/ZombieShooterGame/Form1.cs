@@ -56,13 +56,23 @@ namespace ZombieShooterGame
 
             if (e.KeyCode == Keys.S)
             {
-                character.Image = Properties.Resource1.player_Front;
                 moveDown = true;
                 facing = "down";
-                //character.Image = Properties.Resource1.player_Front;
+                character.Image = Properties.Resource1.player_Front;
             }
-        }
 
+            if(e.KeyCode == Keys.Escape)
+            {
+                timer1.Stop();
+            }
+
+            if (e.KeyCode == Keys.Tab)
+            {
+                timer1.Start();
+            }
+
+        }
+ 
         private void keyisup(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -100,7 +110,11 @@ namespace ZombieShooterGame
             {
                 RestartGame();
             }
+
+
         }
+
+
 
         private void gameEngine(object sender, EventArgs e)
         {
@@ -111,6 +125,8 @@ namespace ZombieShooterGame
             else
             {
                 character.Image = Properties.Resource1.Tombstone;
+                character.BringToFront();
+
                 timer1.Stop();
                 gameOver = true;
             }
@@ -153,7 +169,7 @@ namespace ZombieShooterGame
 
                 if (x is PictureBox && (string)x.Tag == "enemy")
                 {
-                    if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds))
+                    if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds) && characterHealth > 1)
                     {
                         ((PictureBox)x).BringToFront();
                         characterHealth -= 1;
@@ -232,8 +248,8 @@ namespace ZombieShooterGame
 
             enemy.Tag = "enemy";
             enemy.Image = Properties.Resource1.Enemy;
-            enemy.Left = randNum.Next(0, 900);
-            enemy.Top = randNum.Next(0, 800);
+            enemy.Left = randNum.Next(10, this.ClientSize.Width - enemy.Width);
+            enemy.Top = randNum.Next(0, this.ClientSize.Height - enemy.Height);
             enemy.SizeMode = PictureBoxSizeMode.AutoSize;
             enemyList.Add(enemy);
             this.Controls.Add(enemy);

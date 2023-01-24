@@ -16,3 +16,4 @@ C:\Users\22135121\Source\Repos\C0452_PR1\ZombieShooterGame\ZombieShooterGame\obj
 C:\Users\22135121\Source\Repos\C0452_PR1\ZombieShooterGame\ZombieShooterGame\obj\Debug\net6.0-windows\ref\ZombieShooterGame.dll
 C:\Users\22135121\Source\Repos\C0452_PR1\ZombieShooterGame\ZombieShooterGame\obj\Debug\net6.0-windows\ZombieShooterGame.pdb
 C:\Users\22135121\Source\Repos\C0452_PR1\ZombieShooterGame\ZombieShooterGame\obj\Debug\net6.0-windows\ZombieShooterGame.genruntimeconfig.cache
+C:\Users\22135121\Source\Repos\C0452_PR1\ZombieShooterGame\ZombieShooterGame\obj\Debug\net6.0-windows\ZombieShooterGame.pauseMenu.resources
