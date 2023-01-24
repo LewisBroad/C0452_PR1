@@ -17,14 +17,13 @@ namespace ZombieShooterGame
         int characterHealth = 100;
         int speed = 15;
         int ammo = 10;
-        int enemySpeed = 4;
+        int enemySpeed = 5;
         Random randNum = new Random();
         int kills;
         List<PictureBox> enemyList = new List<PictureBox>();
         public Form1()
         {
             InitializeComponent();
-            //RestartGame();
         }
 
         private void keyisdown(object sender, KeyEventArgs e)
@@ -34,28 +33,28 @@ namespace ZombieShooterGame
                 return;
             }
 
-            if (e.KeyCode == Keys.Left)
+            if (e.KeyCode == Keys.A)
             {
                 moveLeft = true;
                 facing = "left";
                 character.Image = Properties.Resource1.player_Left;
             }
 
-            if (e.KeyCode == Keys.Right)
+            if (e.KeyCode == Keys.D)
             {
                 moveRight = true;
                 facing = "right";
                 character.Image = Properties.Resource1.player_Right;
             }
 
-            if (e.KeyCode == Keys.Up)
+            if (e.KeyCode == Keys.W)
             {
                 moveUp = true;
                 facing = "up";
                 character.Image = Properties.Resource1.player_Back;
             }
 
-            if (e.KeyCode == Keys.Down)
+            if (e.KeyCode == Keys.S)
             {
                 character.Image = Properties.Resource1.player_Front;
                 moveDown = true;
@@ -66,22 +65,22 @@ namespace ZombieShooterGame
 
         private void keyisup(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
+            if (e.KeyCode == Keys.A)
             {
                 moveLeft = false;
             }
 
-            if (e.KeyCode == Keys.Right)
+            if (e.KeyCode == Keys.D)
             {
                 moveRight = false;
             }
 
-            if (e.KeyCode == Keys.Up)
+            if (e.KeyCode == Keys.W)
             {
                 moveUp = false;
             }
 
-            if (e.KeyCode == Keys.Down)
+            if (e.KeyCode == Keys.S)
             {
                 moveDown = false;
             }
@@ -134,7 +133,7 @@ namespace ZombieShooterGame
                 character.Top -= speed;
             }
 
-            if (moveDown && character.Top + character.Height > 1420)
+            if (moveDown && character.Top + character.Height < 1420)
             {
                 character.Top += speed;
             }
@@ -156,6 +155,7 @@ namespace ZombieShooterGame
                 {
                     if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds))
                     {
+                        ((PictureBox)x).BringToFront();
                         characterHealth -= 1;
                     }
 
@@ -237,7 +237,7 @@ namespace ZombieShooterGame
             enemy.SizeMode = PictureBoxSizeMode.AutoSize;
             enemyList.Add(enemy);
             this.Controls.Add(enemy);
-            character.BringToFront();
+            //character.BringToFront();
         }
 
         private void RestartGame()
