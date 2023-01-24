@@ -24,7 +24,7 @@ namespace ZombieShooterGame
         public Form1()
         {
             InitializeComponent();
-            RestartGame();
+            //RestartGame();
         }
 
         private void keyisdown(object sender, KeyEventArgs e)
@@ -57,9 +57,10 @@ namespace ZombieShooterGame
 
             if (e.KeyCode == Keys.Down)
             {
+                character.Image = Properties.Resource1.player_Front;
                 moveDown = true;
                 facing = "down";
-                character.Image = Properties.Resource1.player_Front;
+                //character.Image = Properties.Resource1.player_Front;
             }
         }
 

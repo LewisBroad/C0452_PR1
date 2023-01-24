@@ -50,16 +50,16 @@ namespace ZombieShooterGame
 
             if (direction == "up")
             {
-                bulletTop -= speed;
+                bullet.Top -= speed;
             }
 
             if (direction == "down")
             {
-                bulletTop += speed;
+                bullet.Top += speed;
             }
 
 
-            if (bullet.Left < 10 || bullet.Left > 860 || bullet.Top < 10 || bullet.Top > 600)
+            if (bullet.Left < 10 || bullet.Left > 2050 || bullet.Top < 10 || bullet.Top > 1450)
             {
                 bulletTimer.Stop();
                 bulletTimer.Dispose();
