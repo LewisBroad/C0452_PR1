@@ -5,29 +5,34 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ZombieShooterGame
 {
     public partial class Form1 : Form
     {
-        bool moveLeft, moveRight, moveUp, moveDown;
-        bool gameOver = false;
+        bool moveLeft, moveRight, moveUp, moveDown, gameOver;
         string facing = "up";
-        double characterHealth = 100;
+        int characterHealth = 100;
         int speed = 15;
         int ammo = 10;
         int enemySpeed = 4;
         Random randNum = new Random();
-        int kills = 0;
+        int kills;
+        List<PictureBox> enemyList = new List<PictureBox>();
         public Form1()
         {
             InitializeComponent();
+            RestartGame();
         }
 
         private void keyisdown(object sender, KeyEventArgs e)
         {
-            if (gameOver) return;
+            if (gameOver == true)
+            {
+                return;
+            }
 
             if (e.KeyCode == Keys.Left)
             {
@@ -43,7 +48,7 @@ namespace ZombieShooterGame
                 character.Image = Properties.Resource1.player_Right;
             }
 
-            if (e.KeyCode==Keys.Up)
+            if (e.KeyCode == Keys.Up)
             {
                 moveUp = true;
                 facing = "up";
@@ -60,8 +65,6 @@ namespace ZombieShooterGame
 
         private void keyisup(object sender, KeyEventArgs e)
         {
-            if (gameOver) return;
-
             if (e.KeyCode == Keys.Left)
             {
                 moveLeft = false;
@@ -82,15 +85,20 @@ namespace ZombieShooterGame
                 moveDown = false;
             }
 
-            if (e.KeyCode == Keys.Space && ammo > 0)
+            if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
-                fire(facing);
+                fireBullet(facing);
 
                 if (ammo < 1)
                 {
                     spawnAmmo();
                 }
+            }
+
+            if (e.KeyCode == Keys.Enter && gameOver == true)
+            {
+                RestartGame();
             }
         }
 
@@ -98,7 +106,7 @@ namespace ZombieShooterGame
         {
             if (characterHealth > 1)
             {
-                progressBar1.Value = Convert.ToInt32(characterHealth);
+                progressBar1.Value = characterHealth;
             }
             else
             {
@@ -109,11 +117,6 @@ namespace ZombieShooterGame
 
             label1.Text = "Ammo: " + ammo;
             label2.Text = "Kills: " + kills;
-
-            if (characterHealth < 20)
-            {
-                progressBar1.ForeColor = System.Drawing.Color.Red;
-            }
 
             if (moveLeft && character.Left > 0)
             {
@@ -135,29 +138,20 @@ namespace ZombieShooterGame
                 character.Top += speed;
             }
 
+
             foreach (Control x in this.Controls)
             {
-                if (x is PictureBox && x.Tag == "ammo")
+                if (x is PictureBox && (string)x.Tag == "ammo")
                 {
                     if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds))
                     {
                         this.Controls.Remove(((PictureBox)x));
-
                         ((PictureBox)x).Dispose();
                         ammo += 5;
                     }
                 }
 
-                if (x is PictureBox && x.Tag == "bullet")
-                {
-                    if (((PictureBox)x).Left < 1 || ((PictureBox)x).Left > 2010 || ((PictureBox)x).Top < 10 || ((PictureBox)x).Top > 1420)
-                    {
-                        this.Controls.Remove(((PictureBox)x));
-                        ((PictureBox)x).Dispose();
-                    }
-                }
-
-                if (x is PictureBox && x.Tag == "enemy")
+                if (x is PictureBox && (string)x.Tag == "enemy")
                 {
                     if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds))
                     {
@@ -176,7 +170,7 @@ namespace ZombieShooterGame
 
                     if (((PictureBox)x).Left < character.Left)
                     {
-                        ((PictureBox)x).Left += enemySpeed);
+                        ((PictureBox)x).Left += enemySpeed;
                     }
 
                     if (((PictureBox)x).Top < character.Top)
@@ -189,15 +183,18 @@ namespace ZombieShooterGame
                 foreach(Control j in this.Controls)
                 {
 
-                    if ((j is PictureBox && j.Tag == "bullet") && (x is PictureBox && x.Tag == "enemy"))
+                    if ((j is PictureBox && (string)j.Tag == "bullet") && x is PictureBox && (string)x.Tag == "enemy")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
                             kills++;
+
                             this.Controls.Remove(j);
-                            j.Dispose();
+                            ((PictureBox)j).Dispose();
                             this.Controls.Remove(x);
-                            x.Dispose();
+                            ((PictureBox)x).Dispose();
+                            enemyList.Remove(((PictureBox)x));
+                            createEnemies();
                         }
                     }
                 }
@@ -209,22 +206,66 @@ namespace ZombieShooterGame
 
             PictureBox ammo = new PictureBox();
             ammo.Image = Properties.Resource1.Ammo;
-            ammo.Left = randNum.Next(10, 2010);
-            ammo.Top = randNum.Next(50, 1420);
+            ammo.SizeMode = PictureBoxSizeMode.AutoSize;
+            ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
+            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
             ammo.Tag = "ammo";
             this.Controls.Add(ammo);
             ammo.BringToFront();
             character.BringToFront();
         }
 
-        private void fire(string direct)
+        private void fireBullet(string direction)
         {
+            Bullet fire = new Bullet();
 
+            fire.direction = direction;
+            fire.bulletLeft = character.Left + (character.Width / 2);
+            fire.bulletTop = character.Top + (character.Height / 2);
+            fire.gunShot(this);
         }
 
         private void createEnemies()
         {
+            PictureBox enemy = new PictureBox();
 
+            enemy.Tag = "enemy";
+            enemy.Image = Properties.Resource1.Enemy;
+            enemy.Left = randNum.Next(0, 900);
+            enemy.Top = randNum.Next(0, 800);
+            enemy.SizeMode = PictureBoxSizeMode.AutoSize;
+            enemyList.Add(enemy);
+            this.Controls.Add(enemy);
+            character.BringToFront();
+        }
+
+        private void RestartGame()
+        {
+            character.Image = Properties.Resource1.player_Front;
+
+            foreach (PictureBox i in enemyList)
+            {
+                this.Controls.Remove(i);
+            }
+
+            enemyList.Clear();
+
+            for (int i = 0; i < 3; i++)
+            {
+                createEnemies();
+            }
+
+            moveUp = false;
+            moveDown = false;
+            moveLeft = false;
+            moveRight = false;
+            gameOver = false;
+
+            characterHealth = 100;
+            kills = 0;
+            ammo = 10;
+
+            timer1.Start();
         }
     }
 }
