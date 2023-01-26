@@ -12,21 +12,21 @@ namespace ZombieShooterGame
 {
     public partial class Form1 : Form
     {
-        bool moveLeft, moveRight, moveUp, moveDown, gameOver;
+        bool moveLeft, moveRight, moveUp, moveDown, gameOver; 
         string facing = "up";
-        int characterHealth = 100;
-        int speed = 15;
-        int ammo = 10;
+        int characterHealth = 100; //characters Health
+        int speed = 15; //characters move speed
+        int ammo = 10; // characters starting ammo
         int enemySpeed = 5;
         Random randNum = new Random();
         int kills;
         List<PictureBox> enemyList = new List<PictureBox>();
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); //Starts the program
         }
 
-        private void keyisdown(object sender, KeyEventArgs e)
+        private void keyisdown(object sender, KeyEventArgs e) //for whenever a key is down, the code will run. will stay like this without "keyisup"
         {
             if (gameOver == true)
             {
@@ -61,19 +61,19 @@ namespace ZombieShooterGame
                 character.Image = Properties.Resource1.player_Front;
             }
 
-            if(e.KeyCode == Keys.Escape)
+            if(e.KeyCode == Keys.Escape) //pause
             {
                 timer1.Stop();
             }
 
-            if (e.KeyCode == Keys.Tab)
+            if (e.KeyCode == Keys.Tab) //unpause
             {
                 timer1.Start();
             }
 
         }
  
-        private void keyisup(object sender, KeyEventArgs e)
+        private void keyisup(object sender, KeyEventArgs e) //Counters the keyisup code
         {
             if (e.KeyCode == Keys.A)
             {
@@ -116,7 +116,7 @@ namespace ZombieShooterGame
 
 
 
-        private void gameEngine(object sender, EventArgs e)
+        private void gameEngine(object sender, EventArgs e) //This starts all the fundamental features for the program
         {
             if (characterHealth > 1)
             {
@@ -128,7 +128,7 @@ namespace ZombieShooterGame
                 character.BringToFront();
 
                 timer1.Stop();
-                gameOver = true;
+                gameOver = true; //When the character dies, the model will change and run gameover.
             }
 
             label1.Text = "Ammo: " + ammo;
@@ -153,7 +153,7 @@ namespace ZombieShooterGame
             {
                 character.Top += speed;
             }
-
+            //the code above is the character movement. It calls the booleans with the movement terms to know which way the character should be moving.
 
             foreach (Control x in this.Controls)
             {
@@ -164,12 +164,12 @@ namespace ZombieShooterGame
                         this.Controls.Remove(((PictureBox)x));
                         ((PictureBox)x).Dispose();
                         ammo += 5;
-                    }
+                    } //creates an ammo image the will be "used" uppon collision with the character picturebox.
                 }
 
                 if (x is PictureBox && (string)x.Tag == "enemy")
                 {
-                    if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds) && characterHealth > 1)
+                    if (((PictureBox)x).Bounds.IntersectsWith(character.Bounds) && characterHealth > 1) //when the enemy is touching the player, lose heatlh.
                     {
                         ((PictureBox)x).BringToFront();
                         characterHealth -= 1;
@@ -195,7 +195,7 @@ namespace ZombieShooterGame
                         ((PictureBox)x).Top += enemySpeed;
                     }
                 }
-
+                //The enemy character will move in a way dependant on the characters position and will always try to match it. 
 
                 foreach(Control j in this.Controls)
                 {
@@ -212,7 +212,7 @@ namespace ZombieShooterGame
                             ((PictureBox)x).Dispose();
                             enemyList.Remove(((PictureBox)x));
                             createEnemies();
-                        }
+                        } //Bullet collides with enemy will kill them. 
                     }
                 }
             }
@@ -230,7 +230,7 @@ namespace ZombieShooterGame
             this.Controls.Add(ammo);
             ammo.BringToFront();
             character.BringToFront();
-        }
+        }//this line of code creates ammo boxes at random coordinates throughout the map.
 
         private void fireBullet(string direction)
         {
@@ -240,7 +240,7 @@ namespace ZombieShooterGame
             fire.bulletLeft = character.Left + (character.Width / 2);
             fire.bulletTop = character.Top + (character.Height / 2);
             fire.gunShot(this);
-        }
+        }//this is called in the bullet class and is used to dictate which way the bullet should fire.
 
         private void createEnemies()
         {
@@ -254,7 +254,7 @@ namespace ZombieShooterGame
             enemyList.Add(enemy);
             this.Controls.Add(enemy);
             //character.BringToFront();
-        }
+        }//the game will spawn enemies randomly in the playable area when one is killed.
 
         private void RestartGame()
         {
@@ -283,6 +283,6 @@ namespace ZombieShooterGame
             ammo = 10;
 
             timer1.Start();
-        }
+        }//A restart game feature used to simply restart the game. It sets all the code back to the default it originally was.
     }
 }

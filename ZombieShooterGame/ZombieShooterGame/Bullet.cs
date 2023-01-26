@@ -18,12 +18,12 @@ namespace ZombieShooterGame
         private int speed = 20;
         private PictureBox bullet = new PictureBox();
         private Timer bulletTimer = new Timer();
-
+        //establishes integers for the bullet.
 
         public void gunShot(Form form)
         {
-            bullet.BackColor = Color.White;
-            bullet.Size = new Size(5, 5);
+            bullet.BackColor = Color.Gold; //colour of the bullet
+            bullet.Size = new Size(5, 5); //size of the bullet
             bullet.Tag = "bullet";
             bullet.Left = bulletLeft;
             bullet.Top = bulletTop;
@@ -59,7 +59,7 @@ namespace ZombieShooterGame
             }
 
 
-            if (bullet.Left < 10 || bullet.Left > 2050 || bullet.Top < 10 || bullet.Top > 1450)
+            if (bullet.Left < 10 || bullet.Left > 2050 || bullet.Top < 10 || bullet.Top > 1450) //this keeps the bullet in bounds of the game and despawns whenever it has left.
             {
                 bulletTimer.Stop();
                 bulletTimer.Dispose();
